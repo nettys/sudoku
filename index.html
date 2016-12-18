@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sudoku</title>
+	<link rel="stylesheet" type="text/css" href="sudoku.css">
+	<script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+
+<div class="message"></div>
+
+<div class="select-wrapper">
+	<form name="select-game" action="#" onsubmit="return selectGame()">
+	<div class="select-game">
+		<div style="-webkit-flex: 1;flex: 1;"><div><h1>Welcome to Sudoku!</h1></div></div>
+		<div style="-webkit-flex: 1;flex: 1;"><div><span>Dibuat oleh: Netty Setiawan (IT TRAINEE 10)</span></div></div>
+		<div style="-webkit-flex: 1;flex: 1;"><div><a id="howtoplay" onclick='howShow()'>Cara Bermain?</a></div></div>
+		<div><div>
+			<select style="font-size:25px" name="game-type">
+				<option value="" selected>--Choose Game Type--</option>
+				<option value="semi">Semi Sudoku</option>
+				<option value="sudoku">Sudoku</option>
+			</select>
+			<input name="size" type="number" class="inp-number" placeholder="Size" style="font-size:25px;width:75px;text-align:center" maxlength="2" min="2"/>
+		</div></div>
+		<div><div><input type="submit" class="btn" style="font-size:25px" value="Mainkan"/></div></div>
+	</div>
+	</form>
+</div>
+
+<div class="wrapper">
+	<div class="board">
+		
+	</div>
+	<a class="back" id='back' onclick='back()'>Ulang Permainan</a>
+</div>
+<div id="howtopopup" class="overlay">
+	<div class="popup">
+		<h2>Cara Bermain</h2>
+		<a class="close" id='howtoplay-close' onclick='howClose()'>&times;</a>
+		<div class="content">
+			Untuk sudoku yang saya buat, ada 2 tipe permainan yaitu semi sudoku dan sudoku.
+			
+			<ol>
+				<li>
+					<h4>Semi Sudoku</h4>
+					<p>
+						Dalam permainan semi sudoku, ukuran papan yang akan digenerate adalah size x size. Jadi, jika pemain memilih ukuran papan 4 maka ukuran papan adalah 4 x 4 (total kotak adalah 16).
+					</p>
+					<p>
+						Contoh papan yang dihasilkan jika pemain memilih ukuran = 4.
+					</p>
+					<img src="tutorial-picts/semi-sudoku 02.png">
+					<p>
+						Ketika bermain semi sudoku, <b>jumlah hint</b> yang dihasilkan adalah sesuai dengan ukuran papan. Jika ukuran papan adalah 4 x 4, maka hint yang dimunculkan adalah <b>4 angka</b>. Angka yang merupakan <span style="color:green;"><b>hint diberi warna hijau</b></span> dan tidak dapat diganti oleh pemain.
+					</p>
+					<p>
+						Untuk <b>menginput angka</b> ke dalam kotak, pemain harus <b>meng-klik kotak</b> yang ingin diinput. Kotak yang dipilih pemain akan berwarna merah yang menunjukkan kotak sedang aktif. Kemudian masukkan angka yang diinginkan menggunakan keyboard.
+					</p>
+					<img src="tutorial-picts/semi-sudoku 03.png">
+					<p>
+						Untuk <b>menghapus</b> angka yang sudah diinput, pemain dapat menekan tombol <b>spasi</b>.
+					</p>
+					<p>
+						Setiap kali pemain menginput angka, permainan akan melakukan validasi apakah input yang dimasukkan adalah <b>valid secara vertikal maupun horizontal</b>.
+					</p>
+					<p>
+						Jika input yang dimasukkan tidak valid, maka otomatis sistem akan mengecek dan input yang dimasukkan akan diberi berwarna <span style="color: red;">merah</span>.
+					</p>
+					<p>Contoh jika input yang dimasukkan tidak valid:</p>
+					<img src="tutorial-picts/semi-sudoku 04.png">
+
+					<p>
+						Jika pemain telah memasukkan semua angka ke dalam papan, maka otomatis sistem akan melakukan pengecekkan. Apabila angka yang dimasukkan sudah benar semua maka permainan akan selesai dan pemain dinyatakan <b>menang</b>.
+					</p>
+					<img src="tutorial-picts/semi-sudoku 05.png">
+				</li>
+				<li>
+					<h4>Sudoku</h4>
+					<p>
+						Dalam permainan sudoku, ukuran papan yang akan digenerate adalah <b>size kotak kecil x size kotak kecil</b> dimana masing-masing kotak kecil akan memiliki jumlah kotak berukuran size x size. Jadi, jika pemain memilih ukuran papan 3 maka ukuran papan adalah (3x3) x (3x3) (total kotak adalah 81). <b>Maksimum ukuran papan adalah 5</b>
+					</p>
+					<p>
+						Contoh papan yang dihasilkan jika pemain memilih ukuran = 3. Ada 9 kotak kecil, dimana masing-masing kotak kecil memiliki 9 kotak lagi di dalamnya. 
+					</p>
+					<img src="tutorial-picts/sudoku 01.png">
+					<p>
+						Jumlah <b>hint</b> yang dihasilkan dalam permainan sudoku adalah:
+						<br/> Jika papan berukuran 2, Hint =6.
+						<br/> Jika papan berukuran 3, Hint =25.
+						<br/> Jika papan berukuran 4, Hint =60.
+						<br/> Jika papan berukuran 5, Hint =120.
+					</p>
+					<p>
+						Validasi yang dilakukan tidak hanya <b>vertikal</b> dan <b>horizontal</b> saja. Validasi angka yang berada dalam kotak kecil yang sama juga dilakukan. <b>Angka yang ada dalam kotak kecil yang sama harus berbeda semua</b>. 
+					</p>
+					<p>Contoh validasi kotak kecil:</p>
+					<img src="tutorial-picts/sudoku 02.png">
+					<p>
+						Jika pemain telah memasukkan semua angka ke dalam papan, maka otomatis sistem akan melakukan pengecekkan. Apabila angka yang dimasukkan sudah benar semua maka permainan akan selesai dan pemain dinyatakan <b>menang</b>.
+					</p>
+				</li>
+				<li>
+					<h4>Selamat Bermain!</h4>
+					<p>Jika ada yang ingin ditanyakan, silahkan menghubungi saya di:</p>
+					<p>netty.setiawan29@gmail.com</p>
+				</li>
+			</ol>
+		</div>
+	</div>
+</div>
+</body>
+</html>
